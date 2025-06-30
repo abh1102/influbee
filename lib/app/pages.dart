@@ -5,6 +5,8 @@ import 'package:influbee/view/Auth/signup/signup_binding.dart';
 
 import '../view/Auth/login_binding.dart';
 import '../view/Auth/login_screen.dart';
+import '../view/Home/Home_Screen.dart';
+import '../view/Home/Home_binding.dart';
 import '../view/Intro/Splash_Screen.dart';
 
 
@@ -21,6 +23,13 @@ class AppPages {
     ),
     GetPage(name: AppRoutes.SIGNUP, page:()=> SignupView(),binding: SignUpBinding()
 
-    )
+    ),
+
+    GetPage(
+      name: AppRoutes.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+    ),
+
   ];
 }

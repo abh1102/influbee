@@ -49,12 +49,18 @@ class SignupView extends GetView<SignupController> {
                       label: 'Email *',
                       controller: controller.emailController,
                     ),
+                    CustomTextField(
+                      label: 'Phone',
+                      controller: controller.phoneController,
+                      isPassword: true,
+                    ),
                     const SizedBox(height: 16),
                     CustomTextField(
                       label: 'Password *',
                       controller: controller.passwordController,
                       isPassword: true,
                     ),
+
                     const SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(

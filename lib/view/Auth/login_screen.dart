@@ -47,52 +47,69 @@ class LoginView extends GetView<LoginController> {
                       color: Colors.white.withOpacity(0.05),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 16),
-                        CustomTextField(
-                          label: 'Email *',
-                          controller: controller.emailController,
-                        ),
-                        const SizedBox(height: 16),
-                        CustomTextField(
-                          label: 'Password *',
-                          controller: controller.passwordController,
-                          isPassword: true,
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child:
-                          Container(
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFFF8A600), Color(0xFFFFC107)],
-                              ),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                    child: Form(
+                      key: controller.formKey, // Link form key
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 16),
+                          CustomTextField(
+                            label: 'Email *',
+                            controller: controller.emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) return 'Please enter email';
+                              if (!GetUtils.isEmail(value)) return 'Enter valid email';
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          CustomTextField(
+                            label: 'Password *',
+                            controller: controller.passwordController,
+                            isPassword: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) return 'Please enter password';
+                              if (value.length < 6) return 'Password must be at least 6 characters';
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFF8A600), Color(0xFFFFC107)],
                                 ),
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              onPressed: () {
-                                // Call login API here
-                              },
-                              child: const Center(child: Text('Sign In')),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (controller.formKey.currentState!.validate()) {
+                                    // All validations passed
+                                    // controller.loginUser();
+                                    Get.toNamed(AppRoutes.HOME);
+                                  }
+                                },
+                                child: const Center(child: Text('Sign In')),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+
                   ),
                   const SizedBox(height: 20),
                   TextButton(

@@ -8,12 +8,13 @@ class SignupController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final phoneController = TextEditingController();
   void register() {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
+    final phone = passwordController.text.trim();
 
-    Get.snackbar("Signup", "Name: $name, Email: $email, Password: $password");
+    Get.snackbar("Signup", "Name: $name, Email: $email, Password: $password,Phone:$phone");
   }
 }
