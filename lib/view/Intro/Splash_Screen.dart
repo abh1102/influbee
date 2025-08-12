@@ -54,30 +54,18 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               builder: (context, child) {
                 return Transform.scale(
                   scale: _glowAnimation.value,
-                  child: Container(
-                    padding: const EdgeInsets.all(30),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          Colors.amberAccent.withOpacity(0.3),
-                          Colors.amber.withOpacity(0.6),
-                          Colors.transparent,
-                        ],
-                        radius: 1.0,
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.bubble_chart,
-                      size: 80,
-                      color: Colors.amber,
-                    ),
+                  child: Image.asset(
+                    'assets/images/logo.jpeg',
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.contain,
                   ),
                 );
               },
             ),
+
             const SizedBox(height: 20),
-            const FadeInText(),
+            // const FadeInText(),
           ],
         ),
       ),
@@ -85,44 +73,46 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
 }
 
-class FadeInText extends StatefulWidget {
-  const FadeInText({super.key});
 
-  @override
-  State<FadeInText> createState() => _FadeInTextState();
-}
+//
+// class FadeInText extends StatefulWidget {
+//   const FadeInText({super.key});
+//
+//   @override
+//   State<FadeInText> createState() => _FadeInTextState();
+// }
+//
+// class _FadeInTextState extends State<FadeInText> with TickerProviderStateMixin {
+//   late AnimationController _textFadeController;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _textFadeController = AnimationController(
+//       vsync: this,
+//       duration: const Duration(milliseconds: 1500),
+//     )..forward();
+//   }
+//
+//   @override
+//   void dispose() {
+//     _textFadeController.dispose();
+//     super.dispose();
+//   }
 
-class _FadeInTextState extends State<FadeInText> with TickerProviderStateMixin {
-  late AnimationController _textFadeController;
+  // @override
+  // Widget build(BuildContext context) {
+  //   return FadeTransition(
+  //     opacity: _textFadeController,
+  //     child: const Text(
+  //       'Influbee',
+  //       style: TextStyle(
+  //         color: Colors.white,
+  //         fontSize: 32,
+  //         fontWeight: FontWeight.bold,
+  //         letterSpacing: 1.2,
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    _textFadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    )..forward();
-  }
-
-  @override
-  void dispose() {
-    _textFadeController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _textFadeController,
-      child: const Text(
-        'Influbee',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
-        ),
-      ),
-    );
-  }
-}

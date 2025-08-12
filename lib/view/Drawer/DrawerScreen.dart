@@ -32,15 +32,15 @@ class CustomDrawer extends StatelessWidget {
                   const Text("Test User", style: TextStyle(color: Colors.white, fontSize: 16)),
                   const Text("test@test.com", style: TextStyle(color: Colors.white54, fontSize: 12)),
                   const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text("+ Voice Clone Creator",
-                        style: TextStyle(color: Colors.orangeAccent, fontSize: 12)),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.orange.withOpacity(0.1),
+                  //     borderRadius: BorderRadius.circular(6),
+                  //   ),
+                  //   // child: const Text("+ Voice Clone Creator",
+                  //   //     style: TextStyle(color: Colors.orangeAccent, fontSize: 12)),
+                  // ),
                 ],
               ),
             ),

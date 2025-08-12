@@ -112,26 +112,26 @@ class LoginView extends GetView<LoginController> {
 
                   ),
                   const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.SIGNUP);
-                    },
-                    child: const Text(
-                      "Don't have an account? Sign Up",
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Get.toNamed(AppRoutes.SIGNUP);
+                  //   },
+                  //   // child: const Text(
+                  //   //   "Don't have an account? Sign Up",
+                  //   //   style: TextStyle(color: Colors.white70),
+                  //   // ),
+                  // ),
                   const SizedBox(height: 10),
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.orangeAccent),
-                    ),
-                    child: const Text(
-                      'Clear Session (Dev)',
-                      style: TextStyle(color: Colors.orangeAccent),
-                    ),
-                  ),
+                  // OutlinedButton(
+                  //   onPressed: () {},
+                  //   style: OutlinedButton.styleFrom(
+                  //     side: const BorderSide(color: Colors.orangeAccent),
+                  //   ),
+                  //   // child: const Text(
+                  //   //   'Clear Session (Dev)',
+                  //   //   style: TextStyle(color: Colors.orangeAccent),
+                  //   // ),
+                  // ),
                 ],
               ),
             ),

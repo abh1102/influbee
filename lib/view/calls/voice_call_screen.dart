@@ -58,15 +58,15 @@ class VoiceCallsView extends GetView<VoiceCallsController> {
                 color: Colors.white.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Quick Actions',
+                  Text('Quick Actions',
                       style: TextStyle(color: Colors.white, fontSize: 14)),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
+                    children: [
                       _ActionButton(
                           icon: Icons.videocam, label: 'Start Video Call', color: Color(0xFF8E2DE2)),
                       _ActionButton(

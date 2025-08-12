@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/Home_Controller.dart';
+import '../../controller/ScheduleController.dart';
 import '../Drawer/DrawerScreen.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -79,11 +80,27 @@ class HomeView extends GetView<HomeController> {
             const SizedBox(height: 12),
             Row(
               children: [
-                _actionButton("New Post", Icons.add, const Color(0xFFF8A600)),
+                _actionButton(
+                  "New Post",
+                  Icons.add,
+                  const Color(0xFFF8A600),
+                  onTap: () {
+                    // Handle New Post action
+                  },
+                ),
                 const SizedBox(width: 16),
-                _actionButton("Schedule", Icons.calendar_today, const Color(0xFFBA68C8)),
+                _actionButton(
+                  'Schedule Call',
+                  Icons.calendar_today,
+                  const Color(0xFFFF9800),
+                  onTap: () {
+                    final scheduleController = Get.put(ScheduleController()); // Ensure it's available
+                    scheduleController.pickDate(context);
+                  },
+                ),
               ],
             ),
+
             const SizedBox(height: 32),
             const Text("For You", style: TextStyle(color: Colors.white, fontSize: 16)),
             const SizedBox(height: 12),
@@ -119,22 +136,26 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _actionButton(String label, IconData icon, Color color) {
+  Widget _actionButton(String label, IconData icon, Color color, {VoidCallback? onTap}) {
     return Expanded(
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [color.withOpacity(0.9), color]),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: Colors.white),
-              const SizedBox(width: 8),
-              Text(label, style: const TextStyle(color: Colors.white)),
-            ],
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Container(
+          height: 60,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [color.withOpacity(0.9), color]),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: Colors.white),
+                const SizedBox(width: 8),
+                Text(label, style: const TextStyle(color: Colors.white)),
+              ],
+            ),
           ),
         ),
       ),

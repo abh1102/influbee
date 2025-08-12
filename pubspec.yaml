@@ -38,6 +38,8 @@ dependencies:
   get: ^4.7.2
   intl: ^0.20.2
   dio: ^5.8.0+1
+  flutter_launcher_icons: ^0.14.4
+
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +64,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-#  assets:
-#     - assets/images/
+  assets:
+    - assets/images/
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo2.png"
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
