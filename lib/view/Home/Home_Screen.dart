@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/Home_Controller.dart';
+import '../Drawer/DrawerScreen.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -10,11 +11,18 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0D102D),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.menu, color: Colors.white),
-        title: Obx(() => Text.rich(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Colors.white),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),        title: Obx(() => Text.rich(
           TextSpan(
             text: '${controller.greeting.value},\n',
             children: const [
