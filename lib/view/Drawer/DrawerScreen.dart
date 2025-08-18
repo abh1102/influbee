@@ -110,16 +110,18 @@ class CustomDrawer extends StatelessWidget {
         if (title == "Chat") {
           Get.toNamed(AppRoutes.CHAT);
         } else if (title == "Dashboard") {
-          Get.toNamed(AppRoutes.HOME);
+          Get.offAllNamed(AppRoutes.HOME);
         }
         else if (title == "Voice Calls") {
           Get.toNamed(AppRoutes.VOICE);
         }
-        else if (title == "Logout") {
-
-          // Add logout logic here
+        else if (title == "Wallet & Earnings") {
+          Get.toNamed(AppRoutes.WALLET);
         }
-        // Add more navigation cases if needed
+        else if (title == "Logout") {
+          Get.offAllNamed(AppRoutes.LOGIN);
+
+        }
       },
     );
   }

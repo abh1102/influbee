@@ -9,6 +9,10 @@ import '../view/Auth/login_screen.dart';
 import '../view/Home/Home_Screen.dart';
 import '../view/Home/Home_binding.dart';
 import '../view/Intro/Splash_Screen.dart';
+import '../view/WalletAndEarning/WalletBinding.dart';
+import '../view/WalletAndEarning/WalletScreen.dart';
+import '../view/Withdraw/WithdrawBindings.dart';
+import '../view/Withdraw/withdrawScreen.dart';
 import '../view/calls/voice_call_binding.dart';
 import '../view/chat/Chat_binding.dart';
 import '../view/chat/chatscreen.dart';
@@ -43,7 +47,17 @@ class AppPages {
       name: AppRoutes.VOICE,
       page: () => VoiceCallsView(),
       binding:  VoiceBinding(),
-    )
+    ),
+    GetPage(
+      name: AppRoutes.WALLET,
+      page: () => WalletScreen(),
+      binding: Walletbinding()
+    ),
+    // GetPage(
+    //     name: AppRoutes.TRANSACTIONS,
+    //     page: () => Withdrawscreen(),
+    //     binding:  Transaction()
+    // )
 
   ];
 }

@@ -6,5 +6,6 @@ class AppRoutes {
   static const CHAT = '/chat';
 
   static const VOICE = '/voice';
-
+  static const WALLET = '/wallet';
+  static const TRANSACTIONS='/transaction';
 }
