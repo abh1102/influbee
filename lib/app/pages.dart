@@ -9,6 +9,8 @@ import '../view/Auth/login_screen.dart';
 import '../view/Home/Home_Screen.dart';
 import '../view/Home/Home_binding.dart';
 import '../view/Intro/Splash_Screen.dart';
+import '../view/MainScreen/MainBinding.dart';
+import '../view/MainScreen/MainScreen.dart';
 import '../view/WalletAndEarning/WalletBinding.dart';
 import '../view/WalletAndEarning/WalletScreen.dart';
 import '../view/Withdraw/WithdrawBindings.dart';
@@ -35,7 +37,7 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.HOME,
-      page: () => const HomeView(),
+       page: () => const HomeNewView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -51,13 +53,17 @@ class AppPages {
     GetPage(
       name: AppRoutes.WALLET,
       page: () => WalletScreen(),
-      binding: Walletbinding()
+      // binding: Walletbinding()
     ),
     // GetPage(
     //     name: AppRoutes.TRANSACTIONS,
     //     page: () => Withdrawscreen(),
     //     binding:  Transaction()
     // )
-
+    GetPage(
+      name: AppRoutes.Main,
+      page: () => const MainScreen(),
+        binding: MainBinding()
+    ),
   ];
 }

@@ -11,9 +11,10 @@ class VoiceCallsView extends GetView<VoiceCallsController> {
     return Scaffold(
       backgroundColor: const Color(0xFF0D102D),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const BackButton(color: Colors.white),
+        // leading: const BackButton(color: Colors.white),
         title: const Text(
           'Voice Calls',
           style: TextStyle(color: Colors.white, fontSize: 18),

@@ -108,7 +108,6 @@ class ScheduleController extends GetxController {
       ),
     );
   }
-
   void confirmBooking() {
     Get.snackbar(
       'Booking Confirmed',

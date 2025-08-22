@@ -2,118 +2,173 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/Home_Controller.dart';
-import '../../controller/ScheduleController.dart';
-import '../Drawer/DrawerScreen.dart';
 
-class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+class HomeNewView extends GetView<HomeNewController> {
+  const HomeNewView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0D102D),
-      drawer: const CustomDrawer(),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),        title: Obx(() => Text.rich(
-          TextSpan(
-            text: '${controller.greeting.value},\n',
-            children: const [
-              TextSpan(
-                text: 'Test User!',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        )),
-        actions: const [
-          Stack(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.notifications, color: Colors.white),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: CircleAvatar(radius: 6, backgroundColor: Colors.red),
+
+              // ---------------- Header ----------------
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 22,
+                        backgroundImage: AssetImage("assets/user.jpg"),
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Welcome back,", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                          Obx(() => Text(
+                            controller.userName.value,
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                          )),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Stack(
+                    children: const [
+                      Icon(Icons.notifications, color: Colors.white, size: 28),
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: CircleAvatar(radius: 6, backgroundColor: Colors.red),
+                      )
+                    ],
+                  )
+                ],
+              ),
+
+              const SizedBox(height: 24),
+
+              // ---------------- Earnings Card ----------------
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Total Earnings", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                    const SizedBox(height: 8),
+                    Obx(() => Text("\$${controller.totalEarnings}",
+                        style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold))),
+                    const SizedBox(height: 4),
+                    Obx(() => Text(controller.earningsGrowth.value,
+                        style: const TextStyle(color: Colors.greenAccent, fontSize: 12))),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // ---------------- URL Copy Section ----------------
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Obx(() => Text(
+                        controller.userUrl.value,
+                        style: const TextStyle(color: Colors.white70),
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                    ),
+                    const Icon(Icons.copy, color: Colors.orangeAccent),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // ---------------- Main KPIs ----------------
+              const Text("Main KPIs", style: TextStyle(color: Colors.white, fontSize: 16)),
+              const SizedBox(height: 12),
+
+              Obx(() => GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: size.width > 600 ? 3 : 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 1.4,
+                children: [
+                  _kpiCard("Earnings", controller.kpiEarnings.value, controller.kpiEarningsChange.value, Colors.green),
+                  _kpiCard("Fans", controller.kpiFans.value, controller.kpiFansChange.value, Colors.green),
+                  _kpiCard("Engagement", controller.kpiEngagement.value, controller.kpiEngagementChange.value, Colors.red),
+                ],
+              )),
+
+              const SizedBox(height: 20),
+
+              // ---------------- Quick Actions ----------------
+              const Text("Quick Actions", style: TextStyle(color: Colors.white, fontSize: 16)),
+              const SizedBox(height: 12),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _quickAction("Upload", Icons.upload, Colors.orange, onTap: controller.onUpload),
+                  _quickAction(
+                    "Booking",
+                    Icons.calendar_month,
+                    Colors.deepPurple,
+                    onTap: () => controller.onBooking(context),
+                  ),                  _quickAction("Setup", Icons.person, Colors.teal, onTap: controller.onProfile),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              // ---------------- Earnings Analytics ----------------
+              const Text("Earnings Analytics", style: TextStyle(color: Colors.white, fontSize: 16)),
+              const SizedBox(height: 12),
+              Container(
+                height: 180,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Center(
+                  child: Text("Analytics Chart Placeholder", style: TextStyle(color: Colors.white54)),
+                ),
               ),
             ],
           ),
-          SizedBox(width: 16),
-          CircleAvatar(
-            radius: 16,
-            backgroundColor: Colors.deepPurple,
-            child: Text('T', style: TextStyle(color: Colors.white)),
-          ),
-          SizedBox(width: 12),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Top 4 Cards
-            GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1.3,
-              children: [
-                _dashboardCard("Earnings", "\$${controller.earnings}", Icons.attach_money, Colors.green),
-                _dashboardCard("New Fans", "+${controller.newFans}", Icons.people, Colors.orange),
-                _dashboardCard("Bookings", "${controller.bookings} Up", Icons.calendar_today, Colors.red),
-                _dashboardCard("Messages", "${controller.messages} New", Icons.message, Colors.blue),
-              ],
-            ),
-            const SizedBox(height: 24),
-            const Text("Quick Actions", style: TextStyle(color: Colors.white, fontSize: 16)),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                _actionButton(
-                  "New Post",
-                  Icons.add,
-                  const Color(0xFFF8A600),
-                  onTap: () {
-                    // Handle New Post action
-                  },
-                ),
-                const SizedBox(width: 16),
-                _actionButton(
-                  'Schedule Call',
-                  Icons.calendar_today,
-                  const Color(0xFFFF9800),
-                  onTap: () {
-                    final scheduleController = Get.put(ScheduleController()); // Ensure it's available
-                    scheduleController.pickDate(context);
-                  },
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 32),
-            const Text("For You", style: TextStyle(color: Colors.white, fontSize: 16)),
-            const SizedBox(height: 12),
-            _forYouCard("Boost Your Latest Content!", "Your recent voice messages are performing well.", Icons.trending_up),
-            _forYouCard("New Fan Interaction", "Test User, you have new fans interacting with your profile!", Icons.favorite),
-            _forYouCard("Complete Your Profile", "Add more details to your profile", Icons.phone_android),
-          ],
         ),
       ),
+
     );
   }
 
-  Widget _dashboardCard(String title, String value, IconData icon, Color valueColor) {
+  // KPI Card Widget
+  static Widget _kpiCard(String title, String value, String change, Color color) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -123,66 +178,38 @@ class HomeView extends GetView<HomeController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.white70),
-          const SizedBox(height: 8),
-          Text(title, style: const TextStyle(color: Colors.white70, fontSize: 14)),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: TextStyle(color: valueColor, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+          Text(title, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+          const SizedBox(height: 6),
+          Text(value,
+              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+          const Spacer(),
+          Text(change, style: TextStyle(color: color, fontSize: 12)),
         ],
       ),
     );
   }
 
-  Widget _actionButton(String label, IconData icon, Color color, {VoidCallback? onTap}) {
+  // Quick Action Widget
+  static Widget _quickAction(String label, IconData icon, Color color, {VoidCallback? onTap}) {
     return Expanded(
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: onTap,
         child: Container(
-          height: 60,
+          height: 80,
+          margin: const EdgeInsets.symmetric(horizontal: 6),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [color.withOpacity(0.9), color]),
+            color: Colors.white.withOpacity(0.05),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(icon, color: Colors.white),
-                const SizedBox(width: 8),
-                Text(label, style: const TextStyle(color: Colors.white)),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 28),
+              const SizedBox(height: 6),
+              Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+            ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _forYouCard(String title, String subtitle, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.white),
-        title: Text(
-          title,
-          style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: const TextStyle(color: Colors.white70, fontSize: 12),
-        ),
-        trailing: const Text(
-          "Now",
-          style: TextStyle(color: Colors.white54, fontSize: 12),
         ),
       ),
     );
