@@ -8,4 +8,6 @@ class AppRoutes {
   static const VOICE = '/voice';
   static const WALLET = '/wallet';
   static const TRANSACTIONS='/transaction';
+  static const FORGETPASSWORD='/forget';
+  static const SETPIN='/setpin';
 }

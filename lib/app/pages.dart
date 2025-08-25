@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 import 'package:influbee/app/routes.dart';
+import 'package:influbee/view/Auth/ForgetPassword/Bindings.dart';
 import 'package:influbee/view/Auth/signup/SignupScreen.dart';
 import 'package:influbee/view/Auth/signup/signup_binding.dart';
 import 'package:influbee/view/calls/voice_call_screen.dart';
 
+import '../view/Auth/ForgetPassword/ForgetPassword.dart';
+import '../view/Auth/Pin/SetThePin.dart';
+import '../view/Auth/Pin/SetThePinBinding.dart';
 import '../view/Auth/login_binding.dart';
 import '../view/Auth/login_screen.dart';
 import '../view/Home/Home_Screen.dart';
@@ -64,6 +68,16 @@ class AppPages {
       name: AppRoutes.Main,
       page: () => const MainScreen(),
         binding: MainBinding()
+    ),
+    GetPage(
+      name: AppRoutes.FORGETPASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding:ForgetBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.SETPIN,
+      page: () =>  PinScreen(),
+      binding:setpin(),
     ),
   ];
 }

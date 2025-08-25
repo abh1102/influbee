@@ -20,7 +20,7 @@ class LoginController extends GetxController {
       // Dummy login flow
       await Future.delayed(const Duration(seconds: 2));
       Get.snackbar("Login Success", "Welcome back!");
-      Get.offAllNamed("/home");
+      Get.offAllNamed(AppRoutes.Main);
     } catch (e) {
       Get.snackbar("Error", e.toString());
     } finally {
