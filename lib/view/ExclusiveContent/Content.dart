@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:influbee/app/routes.dart';
 
 import '../../controller/contetn_controller.dart';
 
@@ -71,7 +72,8 @@ class ContentScreen extends StatelessWidget {
         backgroundColor: Colors.amber,
         child: Icon(Icons.add),
         onPressed: () {
-          _showPicker(context);
+          Get.toNamed(AppRoutes.NEWPOST);
+          // _showPicker(context);
         },
       ),
     );

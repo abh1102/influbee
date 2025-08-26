@@ -31,7 +31,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     );
 
     Timer(const Duration(seconds: 8), () {
-      Get.offAllNamed(AppRoutes.LOGIN);
+      // Get.offAllNamed(AppRoutes.LOGIN);
+      Get.offAllNamed(AppRoutes.NEWPOST);
     });
   }
 
@@ -55,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                 return Transform.scale(
                   scale: _glowAnimation.value,
                   child: Image.asset(
-                    'assets/images/logo.jpeg',
+                    'assets/Images/logo.jpeg',
                     width: 80,
                     height: 80,
                     fit: BoxFit.contain,

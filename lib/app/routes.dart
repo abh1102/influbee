@@ -9,5 +9,6 @@ class AppRoutes {
   static const WALLET = '/wallet';
   static const TRANSACTIONS='/transaction';
   static const FORGETPASSWORD='/forget';
+  static const NEWPOST='/newpost';
   static const SETPIN='/setpin';
 }

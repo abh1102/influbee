@@ -15,6 +15,7 @@ import '../view/Home/Home_binding.dart';
 import '../view/Intro/Splash_Screen.dart';
 import '../view/MainScreen/MainBinding.dart';
 import '../view/MainScreen/MainScreen.dart';
+import '../view/NewPost/NewPost.dart';
 import '../view/WalletAndEarning/WalletBinding.dart';
 import '../view/WalletAndEarning/WalletScreen.dart';
 import '../view/Withdraw/WithdrawBindings.dart';
@@ -77,6 +78,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.SETPIN,
       page: () =>  PinScreen(),
+      binding:setpin(),
+    ),
+    GetPage(
+      name: AppRoutes.NEWPOST,
+      page: () =>  NewPostView(),
       binding:setpin(),
     ),
   ];
