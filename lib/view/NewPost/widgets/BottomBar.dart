@@ -9,6 +9,9 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 🔥 Hide the entire bottom bar on the last page
+    if (controller.isLast) return const SizedBox.shrink();
+
     final isFirst = controller.currentStep.value == 0;
 
     return Container(
@@ -22,7 +25,8 @@ class BottomBar extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.white24),
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14)),
                 backgroundColor: const Color(0xFF0B0F1A),
               ),
               child: Text(isFirst ? 'Cancel' : 'Back',
@@ -37,9 +41,10 @@ class BottomBar extends StatelessWidget {
                 backgroundColor: const Color(0xFFFFA21A),
                 foregroundColor: Colors.black,
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14)),
               ),
-              child: Text(controller.isLast ? 'Submit' : 'Next'),
+              child: const Text('Next'),
             ),
           ),
         ],

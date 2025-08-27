@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     );
 
     Timer(const Duration(seconds: 8), () {
-      // Get.offAllNamed(AppRoutes.LOGIN);
-      Get.offAllNamed(AppRoutes.NEWPOST);
+       Get.offAllNamed(AppRoutes.LOGIN);
+      // Get.offAllNamed(AppRoutes.NEWPOST);
     });
   }
 

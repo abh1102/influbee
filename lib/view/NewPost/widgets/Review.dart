@@ -23,7 +23,7 @@ class ReviewRow extends StatelessWidget {
           Text(value,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                color: textColor, // <-- value color
+                color: textColor,
               )),
         ],
       ),

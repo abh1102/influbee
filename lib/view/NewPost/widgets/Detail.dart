@@ -109,7 +109,7 @@ class DetailsStep extends StatelessWidget {
                     child: TextField(
                       style: const TextStyle(color: Colors.white),
                       controller: titleCtrl,
-                      onChanged: (v) => controller.tag.value = v,
+                      onChanged: (v) => controller.tags.value = v as List<String>,
                       decoration: _inputDecoration('Add tags seperated by commas'),
                     ),
                   ),

@@ -51,10 +51,10 @@ class MediaStep extends StatelessWidget {
                         children: [
                           const Icon(Icons.insert_drive_file, size: 40, color: Color(0xFFFFA21A)),
                           const SizedBox(height: 10),
-                          const Text('Drag & drop files here',
-                              style: TextStyle(color: Colors.white70)),
+                          // const Text('Drag & drop files here',
+                          //     style: TextStyle(color: Colors.white70)),
                           const SizedBox(height: 2),
-                          const Text('or', style: TextStyle(color: Colors.white54)),
+                          // const Text('or', style: TextStyle(color: Colors.white54)),
                           const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: _pickFile,

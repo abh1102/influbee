@@ -5,14 +5,18 @@ class NewPostController extends GetxController {
   static const steps = ['Media', 'Details', 'Price', 'Review'];
   final currentStep = 0.obs;
   var selectedAudience = ''.obs;
-
+  var enableComments = true.obs;
+  var enableLikes = true.obs;
+  var enableViews=true.obs;
+  var AgeRestriction=false.obs;
   // Media
   final selectedFile = Rx<File?>(null);
+  DateTime? scheduledDateTime;
 
   // Details
   final title = ''.obs;
   final description = ''.obs;
-  final tag = ''.obs;
+  final tags = <String>[].obs;
 
   // Price
   final price = ''.obs;

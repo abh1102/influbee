@@ -27,36 +27,53 @@ class NewPostView extends GetView<NewPostController> {
       appBar: AppBar(
         backgroundColor: bg,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => controller.previousOrCancel(),
-        ),
+        leading: Obx(() {
+          // 🔥 Show back arrow only on last step
+          if (controller.isLast) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => controller.previousOrCancel(),
+            );
+          }
+          return IconButton(
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: () => controller.previousOrCancel(),
+          );
+        }),
         centerTitle: true,
-        title: const Text('New Post', style: TextStyle(fontWeight: FontWeight.w700)),
+        title: const Text(
+          'New Post',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
       ),
       body: SafeArea(
         child: Obx(() {
           return Column(
             children: [
               StepHeader(controller: controller),
-
               const SizedBox(height: 8),
-
-
-             AnimatedSwitcher(
+              Expanded(
+                child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
-                  child: _buildStepContent(controller, card),
+                  child: SingleChildScrollView(
+                    key: ValueKey(controller.currentStep.value),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
+                    child: _buildStepContent(controller, card),
+                  ),
                 ),
-
-
-
+              ),
             ],
           );
         }),
       ),
-      bottomNavigationBar: BottomBar(controller: controller),
-    );
-  }
+
+      /// 🔥 Only build BottomBar if not last
+      bottomNavigationBar: Obx(() {
+        final isLast = controller.isLast; // <-- this reads the Rx
+        if (isLast) return const SizedBox.shrink();
+        return BottomBar(controller: controller);
+      }),    );
+}
 
   Widget _buildStepContent(NewPostController c, Color card) {
     switch (c.currentStep.value) {
