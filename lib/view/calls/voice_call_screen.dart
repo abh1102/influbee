@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/VoiceController.dart';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class VoiceCallsView extends GetView<VoiceCallsController> {
   const VoiceCallsView({super.key});
 
@@ -11,128 +14,135 @@ class VoiceCallsView extends GetView<VoiceCallsController> {
     return Scaffold(
       backgroundColor: const Color(0xFF0D102D),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // leading: const BackButton(color: Colors.white),
         title: const Text(
-          'Voice Calls',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          "Calls",
+          style: TextStyle(color: Colors.orange, fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.more_vert, color: Colors.white),
-          )
-        ],
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(24),
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 12),
-            child: Text(
-              'Manage your voice connections',
-              style: TextStyle(color: Colors.white60, fontSize: 12),
-            ),
-          ),
-        ),
+        // actions: [
+        //   Row(
+        //     children: [
+        //       const Text("Notifications", style: TextStyle(color: Colors.white70, fontSize: 12)),
+        //       const SizedBox(width: 6),
+        //       Switch(
+        //         value: true,
+        //         onChanged: (_) {},
+        //         activeColor: Colors.orange,
+        //       ),
+        //     ],
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Summary Cards
+            // Stats Row
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
-                _SummaryCard(title: '\$0', subtitle: 'Call Earnings'),
-                _SummaryCard(title: '0', subtitle: 'Completed'),
-                _SummaryCard(title: '0', subtitle: 'Scheduled'),
+                _StatCard(value: "12", label: "Total Calls"),
+                _StatCard(value: "245", label: "Minutes"),
+                _StatCard(value: "₹80.00", label: "Earnings"),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
-            // Quick Actions
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Quick Actions',
-                      style: TextStyle(color: Colors.white, fontSize: 14)),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _ActionButton(
-                          icon: Icons.videocam, label: 'Start Video Call', color: Color(0xFF8E2DE2)),
-                      _ActionButton(
-                          icon: Icons.call, label: 'Start Voice Call', color: Color(0xFF009688)),
-                      _ActionButton(
-                          icon: Icons.schedule, label: 'Schedule Call', color: Color(0xFFFF9800)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Tab Buttons
+            // Filter Tabs (All / Missed Calls)
             Obx(() {
               return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(3, (index) {
-                  final labels = ['All Calls', 'Scheduled', 'History'];
-                  final isSelected = controller.selectedTabIndex.value == index;
-                  return GestureDetector(
-                    onTap: () => controller.selectedTabIndex.value = index,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: isSelected ? Colors.deepPurple : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.deepPurple),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            labels[index],
-                            style: TextStyle(
-                              color: isSelected ? Colors.white : Colors.white70,
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          const Text(
-                            '0',
-                            style: TextStyle(color: Colors.white54, fontSize: 12),
-                          ),
-                        ],
-                      ),
+                children: [
+                  Expanded(
+                    child: _TabButton(
+                      text: "All",
+                      selected: controller.selectedTabIndex.value == 0,
+                      onTap: () => controller.selectedTabIndex.value = 0,
                     ),
-                  );
-                }),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: _TabButton(
+                      text: "Missed Calls",
+                      selected: controller.selectedTabIndex.value == 1,
+                      onTap: () => controller.selectedTabIndex.value = 1,
+                    ),
+                  ),
+                ],
               );
             }),
-            const SizedBox(height: 40),
+            const SizedBox(height: 12),
 
-            // Empty State
-            Center(
-              child: Column(
-                children: const [
-                  Icon(Icons.phone_disabled, color: Colors.white24, size: 64),
-                  SizedBox(height: 12),
-                  Text("No all calls",
-                      style: TextStyle(color: Colors.white, fontSize: 16)),
-                  SizedBox(height: 4),
-                  Text("Your call history will appear here",
-                      style: TextStyle(color: Colors.white54, fontSize: 12)),
-                ],
-              ),
+            // Audio / Video Filter Buttons
+          // Inside VoiceCallsView build()
+            Obx(() => Row(
+              children: [
+                Expanded(
+                  child: _FilterButton(
+                    icon: Icons.call,
+                    label: "Audio",
+                    selected: controller.selectedFilter.value == "audio",
+                    onTap: () => controller.selectedFilter.value = "audio",
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _FilterButton(
+                    icon: Icons.videocam,
+                    label: "Video",
+                    selected: controller.selectedFilter.value == "video",
+                    onTap: () => controller.selectedFilter.value = "video",
+                  ),
+                ),
+              ],
+            )),
+
+
+            const SizedBox(height: 24),
+
+            // Calls List
+            _SectionTitle("TODAY"),
+            const _CallTile(
+              name: "Abhi",
+              type: "Video Call",
+              status: "Completed - 15:30",
+              amount: "₹30.00",
+              rating: 4.5,
+              isMissed: false,
+              avatar: "https://i.pravatar.cc/100?img=1",
+            ),
+            const _CallTile(
+              name: "Pragya",
+              type: "Audio Call",
+              status: "Missed",
+              amount: "₹30.00",
+              rating: 0,
+              isMissed: true,
+              avatar: "https://i.pravatar.cc/100?img=2",
+            ),
+            const SizedBox(height: 16),
+
+            _SectionTitle("YESTERDAY"),
+            const _CallTile(
+              name: "AJ",
+              type: "Video Call",
+              status: "Completed - 20:00",
+              amount: "₹30.00",
+              rating: 5,
+              isMissed: false,
+              avatar: "https://i.pravatar.cc/100?img=3",
+            ),
+            const SizedBox(height: 16),
+
+            _SectionTitle("OLDER"),
+            const _CallTile(
+              name: "John",
+              type: "Audio Call",
+              status: "Scheduled: Tomorrow",
+              amount: "₹30.00",
+              rating: 0,
+              isMissed: false,
+              avatar: "https://i.pravatar.cc/100?img=4",
             ),
           ],
         ),
@@ -141,27 +151,25 @@ class VoiceCallsView extends GetView<VoiceCallsController> {
   }
 }
 
-class _SummaryCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  const _SummaryCard({required this.title, required this.subtitle});
+class _StatCard extends StatelessWidget {
+  final String value;
+  final String label;
+  const _StatCard({required this.value, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.05),
+          color: Colors.black.withOpacity(0.3),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           children: [
-            Text(title, style: const TextStyle(color: Colors.white, fontSize: 16)),
-            const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+            Text(value, style: const TextStyle(color: Colors.yellow, fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 6),
+            Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
           ],
         ),
       ),
@@ -169,27 +177,170 @@ class _SummaryCard extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-
-  const _ActionButton({required this.icon, required this.label, required this.color});
+class _TabButton extends StatelessWidget {
+  final String text;
+  final bool selected;
+  final VoidCallback onTap;
+  const _TabButton({required this.text, required this.selected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 24,
-          backgroundColor: color,
-          child: Icon(icon, color: Colors.white),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: selected ? Colors.orange : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.orange),
         ),
-        const SizedBox(height: 6),
-        Text(label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 10)),
-      ],
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: selected ? Colors.white : Colors.orange,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
+
+class _FilterButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _FilterButton({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: selected ? Colors.orange : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.orange),
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: selected ? Colors.white : Colors.orange, size: 18),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.orange,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CallTile extends StatelessWidget {
+  final String name;
+  final String type;
+  final String status;
+  final String amount;
+  final double rating;
+  final bool isMissed;
+  final String avatar;
+
+  const _CallTile({
+    required this.name,
+    required this.type,
+    required this.status,
+    required this.amount,
+    required this.rating,
+    required this.isMissed,
+    required this.avatar,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(backgroundImage: NetworkImage(avatar), radius: 22),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("$type with $name",
+                    style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 4),
+                Text(
+                  status,
+                  style: TextStyle(
+                    color: isMissed ? Colors.redAccent : Colors.green,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(amount, style: const TextStyle(color: Colors.yellow, fontSize: 14, fontWeight: FontWeight.bold)),
+              if (rating > 0)
+                Row(
+                  children: List.generate(
+                    5,
+                        (i) => Icon(
+                      i < rating.floor() ? Icons.star : Icons.star_border,
+                      color: Colors.yellow,
+                      size: 14,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String text;
+  const _SectionTitle(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Text(text,
+            style: const TextStyle(
+              color: Colors.white54,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
+    );
+  }
+}
+

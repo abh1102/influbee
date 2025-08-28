@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/routes.dart';
 import '../../controller/Home_Controller.dart';
 
 class HomeNewView extends GetView<HomeNewController> {
@@ -25,9 +26,13 @@ class HomeNewView extends GetView<HomeNewController> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
+                      GestureDetector(
+                        onTap: ()=>Get.toNamed(AppRoutes.SETTINGS),
+                     child: CircleAvatar(
                         radius: 22,
                         backgroundImage: AssetImage("assets/user.jpg"),
+                      )
+                        ,
                       ),
                       const SizedBox(width: 10),
                       Column(
@@ -42,8 +47,11 @@ class HomeNewView extends GetView<HomeNewController> {
                       ),
                     ],
                   ),
-                  Stack(
+                  GestureDetector(
+                    onTap: ()=>Get.toNamed(AppRoutes.NOTIFICATIONS),
+                  child: Stack(
                     children: const [
+                      
                       Icon(Icons.notifications, color: Colors.white, size: 28),
                       Positioned(
                         right: 0,
@@ -51,6 +59,7 @@ class HomeNewView extends GetView<HomeNewController> {
                         child: CircleAvatar(radius: 6, backgroundColor: Colors.red),
                       )
                     ],
+                  )
                   )
                 ],
               ),
@@ -133,7 +142,9 @@ class HomeNewView extends GetView<HomeNewController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _quickAction("Upload", Icons.upload, Colors.orange, onTap: controller.onUpload),
+                  _quickAction("Upload", Icons.upload, Colors.orange, onTap:()=>Get.toNamed(AppRoutes.NEWPOST),
+                  
+                  ),
                   _quickAction(
                     "Booking",
                     Icons.calendar_month,

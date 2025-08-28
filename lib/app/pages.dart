@@ -3,6 +3,10 @@ import 'package:influbee/app/routes.dart';
 import 'package:influbee/view/Auth/ForgetPassword/Bindings.dart';
 import 'package:influbee/view/Auth/signup/SignupScreen.dart';
 import 'package:influbee/view/Auth/signup/signup_binding.dart';
+import 'package:influbee/view/Notifications/NotificationsBinding.dart';
+import 'package:influbee/view/Notifications/NotificationsScreens.dart';
+import 'package:influbee/view/Settings/SettingsBindings.dart';
+import 'package:influbee/view/Settings/SettingsScreens.dart';
 import 'package:influbee/view/calls/voice_call_screen.dart';
 
 import '../view/Auth/ForgetPassword/ForgetPassword.dart';
@@ -20,6 +24,8 @@ import '../view/WalletAndEarning/WalletBinding.dart';
 import '../view/WalletAndEarning/WalletScreen.dart';
 import '../view/Withdraw/WithdrawBindings.dart';
 import '../view/Withdraw/withdrawScreen.dart';
+import '../view/calls/Incomingcallsbinding.dart';
+import '../view/calls/incomingcalls.dart';
 import '../view/calls/voice_call_binding.dart';
 import '../view/chat/Chat_binding.dart';
 import '../view/chat/chatscreen.dart';
@@ -84,6 +90,28 @@ class AppPages {
       name: AppRoutes.NEWPOST,
       page: () =>  NewPostView(),
       binding:setpin(),
+    ),
+    GetPage(
+      name: AppRoutes.NEWPOST,
+      page: () =>  NewPostView(),
+      binding:setpin(),
+    ),
+///ISKO EK BAAR CHECK KARNA HAI
+    GetPage(
+      name: AppRoutes.Calling,
+      page: () =>  IncomingCallScreen(),
+      binding:Incomingcalls(),
+    ),
+    GetPage(
+      name: AppRoutes.SETTINGS,
+      page: () =>  SettingsScreen(),
+      binding:Settingsbinding(),
+    ),
+    ///NOTIFICATIONS
+    GetPage(
+      name: AppRoutes.NOTIFICATIONS,
+      page: () =>  NotificationScreen(),
+      binding:NotificationsBindings(),
     ),
   ];
 }

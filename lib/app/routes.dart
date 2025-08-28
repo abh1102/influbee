@@ -11,4 +11,8 @@ class AppRoutes {
   static const FORGETPASSWORD='/forget';
   static const NEWPOST='/newpost';
   static const SETPIN='/setpin';
+  static const Calling='/Calling';
+  static const SETTINGS='/settings';
+  static const NOTIFICATIONS='/notifications';
+
 }
