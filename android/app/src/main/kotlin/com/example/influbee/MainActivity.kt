@@ -1,4 +1,4 @@
-package com.example.influbee
+package com.influbee.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -40,7 +40,7 @@ class MainScreen extends StatelessWidget {
       const HomeNewView(),
       ChatScreen(),
       VoiceCallsView(),
-      WalletScreen(),
+      WalletPage(),
       ContentScreen(),
     ];
 

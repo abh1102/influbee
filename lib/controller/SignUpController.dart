@@ -10,12 +10,18 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:influbee/app/routes.dart';
 
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../Service/SignUpService.dart';
+
 class SignupController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  final ImagePicker _picker = ImagePicker();
   var isAgreed = false.obs;
   var profileImage = Rx<File?>(null);
 
@@ -26,20 +32,21 @@ class SignupController extends GetxController {
   var confirmPasswordError = "".obs;
   var termsError = "".obs;
 
-  final ImagePicker _picker = ImagePicker();
+  var isPasswordHidden = true.obs;
+  var isConfirmPasswordHidden = true.obs;
+
+  final SignupService _signupService = SignupService();
 
   @override
   void onInit() {
     super.onInit();
 
-    /// Clear name error when user types
     nameController.addListener(() {
       if (nameController.text.trim().isNotEmpty) {
         nameError.value = "";
       }
     });
 
-    /// Clear email error when valid email entered
     emailController.addListener(() {
       final email = emailController.text.trim();
       if (GetUtils.isEmail(email)) {
@@ -47,25 +54,20 @@ class SignupController extends GetxController {
       }
     });
 
-    /// Clear password error if valid length
     passwordController.addListener(() {
-      final password = passwordController.text.trim();
-      if (password.length >= 6) {
+      if (passwordController.text.trim().length >= 6) {
         passwordError.value = "";
       }
     });
 
-    /// Clear confirm password error when it matches
     confirmPasswordController.addListener(() {
-      final confirmPassword = confirmPasswordController.text.trim();
-      if (confirmPassword == passwordController.text.trim() &&
-          confirmPassword.isNotEmpty) {
+      if (confirmPasswordController.text.trim() ==
+          passwordController.text.trim() &&
+          confirmPasswordController.text.trim().isNotEmpty) {
         confirmPasswordError.value = "";
       }
     });
   }
-
-
   Future<void> pickImage() async {
     Get.bottomSheet(
       Container(
@@ -106,8 +108,7 @@ class SignupController extends GetxController {
     );
   }
 
-  void register() {
-    // Reset errors
+  Future<void> register() async {
     nameError.value = "";
     emailError.value = "";
     passwordError.value = "";
@@ -125,7 +126,6 @@ class SignupController extends GetxController {
       nameError.value = "Name is required";
       isValid = false;
     }
-
     if (email.isEmpty) {
       emailError.value = "Email is required";
       isValid = false;
@@ -133,7 +133,6 @@ class SignupController extends GetxController {
       emailError.value = "Enter a valid email";
       isValid = false;
     }
-
     if (password.isEmpty) {
       passwordError.value = "Password is required";
       isValid = false;
@@ -141,7 +140,6 @@ class SignupController extends GetxController {
       passwordError.value = "Password must be at least 6 characters";
       isValid = false;
     }
-
     if (confirmPassword.isEmpty) {
       confirmPasswordError.value = "Confirm your password";
       isValid = false;
@@ -149,13 +147,10 @@ class SignupController extends GetxController {
       confirmPasswordError.value = "Passwords do not match";
       isValid = false;
     }
-
     if (!isAgreed.value) {
       termsError.value = "You must agree to continue";
       isValid = false;
     }
-
-
     if (profileImage.value == null) {
       Get.snackbar("Error", "Profile picture is required",
           snackPosition: SnackPosition.BOTTOM,
@@ -163,12 +158,36 @@ class SignupController extends GetxController {
           colorText: Colors.white);
       isValid = false;
     }
-    if (isValid) {
-      // Proceed with signup logic
-      Get.snackbar("Signup Success",
-          "Name: $name, Email: $email, Profile: ${profileImage.value?.path ?? 'No Image'}");
+
+    if (!isValid) return;
+
+    try {
+      Get.dialog(const Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+
+      final response = await _signupService.signup(
+        email: email,
+        username: name,
+        password: password,
+        confirmPassword: confirmPassword,
+        phoneNumber: "1234567890", // dummy value (can be dynamic later)
+        profileImage: profileImage.value!,
+      );
+
+      Get.back(); // close loader
+
+      Get.snackbar("Success", "Signup successful",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+
       Get.toNamed(AppRoutes.SETPIN);
+    } catch (e) {
+      Get.back(); // close loader
+      Get.snackbar("Error", e.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent,
+          colorText: Colors.white);
     }
   }
-
 }

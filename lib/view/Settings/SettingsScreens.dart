@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/Settings_controllers.dart';
+import '../Auth/PasswordFromSettings/password_page.dart';
+import '../FeaturesPage/FeaturesPages.dart';
+import '../Payout/payout_setup_page.dart';
 
 class SettingsScreen extends StatelessWidget {
   final SettingsController controller = Get.put(SettingsController());
@@ -25,9 +28,25 @@ class SettingsScreen extends StatelessWidget {
             // Account Settings
             _sectionTitle("Account Settings"),
             _settingsCard([
-              _settingsTile(Icons.account_balance_wallet, "Payout", () {}),
-              _settingsTile(Icons.settings, "Feature Settings", () {}),
-              _settingsTile(Icons.lock, "Password", () {}),
+              _settingsTile(
+                Icons.account_balance_wallet,
+                "Payout",
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>PayoutSetupPage()),
+                  );
+                },
+              ),
+              _settingsTile(Icons.settings, "Feature Settings", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>FeaturesPage()));
+
+              }),
+              _settingsTile(Icons.lock, "Password", () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>PasswordPage()));
+
+
+              }),
             ]),
 
             SizedBox(height: 20),

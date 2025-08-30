@@ -63,7 +63,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.WALLET,
-      page: () => WalletScreen(),
+      page: () => WalletPage(),
       // binding: Walletbinding()
     ),
     // GetPage(

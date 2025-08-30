@@ -10,6 +10,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -75,21 +76,37 @@ class LoginView extends GetView<LoginController> {
                     const SizedBox(height: 16),
 
                     // Password field
-                    TextFormField(
-                      controller: controller.passwordController,
-                      obscureText: true,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: _inputDecoration("Password"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter password";
-                        }
-                        if (value.length < 6) {
-                          return "Password must be at least 6 characters";
-                        }
-                        return null;
-                      },
-                    ),
+                    // Password field with eye toggle
+                    Obx(() {
+                      return TextFormField(
+                        controller: controller.passwordController,
+                        obscureText: controller.isPasswordHidden.value,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: _inputDecoration("Password").copyWith(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.isPasswordHidden.value
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.white70,
+                            ),
+                            onPressed: () {
+                              controller.isPasswordHidden.toggle();
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter password";
+                          }
+                          if (value.length < 6) {
+                            return "Password must be at least 6 characters";
+                          }
+                          return null;
+                        },
+                      );
+                    }),
+
 
                     const SizedBox(height: 12),
 

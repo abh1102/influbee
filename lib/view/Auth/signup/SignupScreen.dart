@@ -128,6 +128,7 @@ body:Container(
                     label: 'Password',
                     controller: controller.passwordController,
                     isPassword: true,
+                    isHidden: controller.isPasswordHidden,
                   ),
                   Obx(() => controller.passwordError.value.isNotEmpty
                       ? Text(
@@ -148,6 +149,7 @@ body:Container(
                     label: 'Confirm Password',
                     controller: controller.confirmPasswordController,
                     isPassword: true,
+                    isHidden: controller.isConfirmPasswordHidden,
                   ),
                   Obx(() => controller.confirmPasswordError.value.isNotEmpty
                       ? Text(

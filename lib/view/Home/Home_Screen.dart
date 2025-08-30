@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Profile/profile_page.dart';
 import '../../app/routes.dart';
 import '../../controller/Home_Controller.dart';
 
@@ -27,7 +28,9 @@ class HomeNewView extends GetView<HomeNewController> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: ()=>Get.toNamed(AppRoutes.SETTINGS),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
+                        },
                      child: CircleAvatar(
                         radius: 22,
                         backgroundImage: AssetImage("assets/user.jpg"),
@@ -150,7 +153,7 @@ class HomeNewView extends GetView<HomeNewController> {
                     Icons.calendar_month,
                     Colors.deepPurple,
                     onTap: () => controller.onBooking(context),
-                  ),                  _quickAction("Setup", Icons.person, Colors.teal, onTap: controller.onProfile),
+                  ),                  _quickAction("Settings", Icons.person, Colors.teal, onTap: ()=>Get.toNamed(AppRoutes.SETTINGS)),
                 ],
               ),
 
