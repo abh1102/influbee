@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,8 +37,40 @@ import 'appss.dart';
 //     getPages: AppPages.routes,
 //   ));
 // }
-void main() {
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  // Setup push notifications
+  await setupPush();
   runApp(const PayoutApp());
+}
+Future<void> setupPush() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  // Request permissions (mainly for iOS, optional on Android)
+  await messaging.requestPermission();
+
+  // Get FCM token (device-specific)
+  String? token = await messaging.getToken();
+  print("🔥 FCM Token: $token"); // Copy this to Firebase Console → Cloud Messaging → Send Test
+
+  // Handle foreground messages
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('📩 Got a message while in the foreground!');
+    print('Message data: ${message.data}');
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
 }
 //
 // class PayoutApp extends StatelessWidget {
