@@ -1,43 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:influbee/pages/active_call_page.dart';
-import 'package:influbee/pages/ai_bot_page.dart';
-import 'package:influbee/pages/bank_details_page.dart';
-import 'package:influbee/pages/calls_page.dart';
-import 'package:influbee/pages/chat_conversation_page.dart';
-import 'package:influbee/pages/confirm_pin_page.dart';
-import 'package:influbee/pages/enter_pin_page.dart';
-import 'package:influbee/pages/features_page.dart';
-import 'package:influbee/pages/incoming_call_page.dart';
-import 'package:influbee/pages/login_page.dart';
-import 'package:influbee/pages/messages_page.dart';
-import 'package:influbee/pages/new_post_page.dart';
-import 'package:influbee/pages/notifications_page.dart';
-import 'package:influbee/pages/pan_details_page.dart';
-import 'package:influbee/pages/password_page.dart';
-import 'package:influbee/pages/payout_setup_page.dart';
-import 'package:influbee/pages/profile_dashboard_page.dart';
-import 'package:influbee/pages/set_pin_page.dart';
-import 'package:influbee/pages/settings_page.dart';
-import 'package:influbee/pages/wallet_page.dart';
-
-import 'Profile/profile_page.dart';
-import 'app/pages.dart';
-import 'app/routes.dart';
-import 'appss.dart';
-
+// import 'package:flutter/material.dart';
+// import 'pages/settings_page.dart';
+// import 'pages/payout_setup_page.dart';
+// import 'pages/pan_details_page.dart';
+// import 'pages/bank_details_page.dart';
+// import 'pages/enter_pin_page.dart';
+// import 'pages/confirm_pin_page.dart';
+// import 'pages/set_pin_page.dart';
+// import 'pages/messages_page.dart';
+// import 'pages/chat_conversation_page.dart';
+// import 'pages/new_post_page.dart';
+// import 'pages/wallet_page.dart';
+// import 'pages/calls_page.dart';
+// import 'pages/incoming_call_page.dart';
+// import 'pages/active_call_page.dart';
+// import 'pages/profile_dashboard_page.dart';
+// import 'pages/profile_page.dart';
+// import 'pages/notifications_page.dart';
+// import 'pages/features_page.dart';
+// import 'pages/password_page.dart';
+// import 'pages/ai_bot_page.dart';
+// import 'pages/login_page.dart';
+// import 'pages/create_account_page.dart';
+// import 'pages/forgot_password_page.dart';
+// import 'pages/content_library_page.dart';
+// import 'pages/new_post_media_page.dart';
+// import 'pages/new_post_details_page.dart';
+// import 'pages/new_post_price_page.dart';
+// import 'pages/review_publish_page.dart';
+// import 'pages/profile_picture_upload_page.dart';
+// import 'pages/otp_verification_page.dart';
+// import 'pages/reset_password_page.dart';
+// import 'pages/billing_details_page.dart';
+// import 'pages/setup_rates_page.dart';
+// import 'pages/premium_calls_page.dart';
+//
 // void main() {
-//   runApp(GetMaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     title: "Influbee",
-//     initialRoute: AppRoutes.SPLASH,
-//     getPages: AppPages.routes,
-//   ));
+//   runApp(const PayoutApp());
 // }
-void main() {
-  runApp(const PayoutApp());
-}
 //
 // class PayoutApp extends StatelessWidget {
 //   const PayoutApp({super.key});
@@ -45,7 +44,7 @@ void main() {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-//       title: 'influbee',
+//       title: 'Payout App',
 //       debugShowCheckedModeBanner: false,
 //       theme: ThemeData(
 //         brightness: Brightness.dark,
@@ -386,12 +385,12 @@ void main() {
 //   }
 //
 //   Widget _buildNavigationButton(
-//       BuildContext context,
-//       String title,
-//       String subtitle,
-//       IconData icon,
-//       String route,
-//       ) {
+//     BuildContext context,
+//     String title,
+//     String subtitle,
+//     IconData icon,
+//     String route,
+//   ) {
 //     return Container(
 //       width: double.infinity,
 //       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -414,7 +413,7 @@ void main() {
 //             ),
 //             const SizedBox(width: 16),
 //             Expanded(
-//               child: Column(
+//         child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
 //                   Text(
@@ -426,7 +425,7 @@ void main() {
 //                     ),
 //                   ),
 //                   const SizedBox(height: 4),
-//                   Text(
+//             Text(
 //                     subtitle,
 //                     style: const TextStyle(
 //                       color: Colors.grey,
