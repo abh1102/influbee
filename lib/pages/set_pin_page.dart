@@ -60,7 +60,7 @@ class _SetPinPageState extends State<SetPinPage> {
         backgroundColor: const Color(0xFF1A1A1A),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/dashboard'),
         ),
         elevation: 0,
       ),

@@ -107,7 +107,6 @@ class _ConfirmPinPageState extends State<ConfirmPinPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
                     Navigator.pushReplacementNamed(context, '/enter_pin');
                   },
                   style: ElevatedButton.styleFrom(
@@ -212,7 +211,7 @@ class _ConfirmPinPageState extends State<ConfirmPinPage> {
         backgroundColor: const Color(0xFF1A1A1A),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/set_pin'),
         ),
         elevation: 0,
       ),

@@ -48,7 +48,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
     if (filteredValue.length == _pinLength) {
       Future.delayed(const Duration(milliseconds: 300), () {
         // Simulate PIN verification (in real app, verify against stored PIN)
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/dashboard');
       });
     }
   }
@@ -61,7 +61,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
         backgroundColor: const Color(0xFF1A1A1A),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/dashboard'),
         ),
         elevation: 0,
       ),

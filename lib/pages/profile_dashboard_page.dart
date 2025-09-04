@@ -370,7 +370,9 @@ class _ProfileDashboardPageState extends State<ProfileDashboardPage> {
               Navigator.pushNamed(context, '/setup_rates');
             })),
             const SizedBox(width: 12),
-            Expanded(child: _buildQuickActionBox(Icons.live_tv, 'Live', () {})),
+            Expanded(child: _buildQuickActionBox(Icons.live_tv, 'Live', () {
+              Navigator.pushNamed(context, '/live_options');
+            })),
             const SizedBox(width: 12),
             Expanded(child: _buildQuickActionBox(Icons.smart_toy, 'AI Bot', () {
               Navigator.pushNamed(context, '/ai_bot');

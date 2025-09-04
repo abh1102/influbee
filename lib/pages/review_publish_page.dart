@@ -321,40 +321,6 @@ class _ReviewPublishPageState extends State<ReviewPublishPage> {
           
           const SizedBox(height: 32),
           
-          // Publishing Checklist
-          const Text(
-            'Publishing Checklist',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          
-          const SizedBox(height: 16),
-          
-          Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF2A2A2A),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                _buildChecklistItem('Media uploaded', true),
-                const Divider(color: Colors.grey, height: 1),
-                _buildChecklistItem('Title and description added', true),
-                const Divider(color: Colors.grey, height: 1),
-                _buildChecklistItem('Price set', true),
-                const Divider(color: Colors.grey, height: 1),
-                _buildChecklistItem('Tags added', true),
-                const Divider(color: Colors.grey, height: 1),
-                _buildChecklistItem('Audience selected', true),
-              ],
-            ),
-          ),
-          
-          const SizedBox(height: 32),
-          
           // Publishing Options
           Row(
             children: [
@@ -484,45 +450,7 @@ class _ReviewPublishPageState extends State<ReviewPublishPage> {
     }
   }
 
-  Widget _buildChecklistItem(String title, bool isCompleted) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      child: Row(
-        children: [
-          Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              color: isCompleted ? const Color(0xFF4CAF50) : Colors.transparent,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isCompleted ? const Color(0xFF4CAF50) : Colors.grey,
-                width: 2,
-              ),
-            ),
-            child: isCompleted
-                ? const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 16,
-                  )
-                : null,
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                color: isCompleted ? Colors.white : Colors.grey,
-                fontSize: 16,
-                fontWeight: isCompleted ? FontWeight.w500 : FontWeight.normal,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   void _saveAsDraft() {
     _showSuccessDialog(

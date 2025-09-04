@@ -12,8 +12,10 @@ class _AiBotPageState extends State<AiBotPage> {
   final TextEditingController _instagramController = TextEditingController(text: 'https://instagram.com/yourprofile');
   final TextEditingController _youtubeController = TextEditingController(text: 'https://youtube.com/yourchannel');
   
-  bool _enableAiBot = true;
-  double _interactionStyle = 0.8; // 0.0 = Modest, 1.0 = Flirty
+  // Track questionnaire completion
+  bool _questionnaireCompleted = false;
+  int _completedQuestions = 0;
+  int _totalQuestions = 20; // 10 MCQ + 10 Subjective
 
   @override
   void dispose() {
@@ -48,21 +50,39 @@ class _AiBotPageState extends State<AiBotPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Enable AI Bot Toggle
+            // AI Bot Status Card
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: const Color(0xFF2A2A2A),
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFFFF9500).withOpacity(0.3),
+                  width: 1,
+                ),
               ),
               child: Row(
                 children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF9500).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.smart_toy,
+                      color: Color(0xFFFF9500),
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Enable AI Bot',
+                          'AI Bot Active',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -70,9 +90,11 @@ class _AiBotPageState extends State<AiBotPage> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          'Let your bee assistant handle chats.',
-                          style: TextStyle(
+                        Text(
+                          _questionnaireCompleted 
+                              ? 'Your AI bot is ready to handle chats!'
+                              : 'Complete the questionnaire to activate your AI bot',
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 14,
                           ),
@@ -80,17 +102,146 @@ class _AiBotPageState extends State<AiBotPage> {
                       ],
                     ),
                   ),
-                  Switch(
-                    value: _enableAiBot,
-                    onChanged: (value) {
-                      setState(() {
-                        _enableAiBot = value;
-                      });
-                    },
-                    activeColor: const Color(0xFFFF9500),
-                    activeTrackColor: const Color(0xFFFF9500).withOpacity(0.3),
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey.withOpacity(0.3),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: _questionnaireCompleted 
+                          ? const Color(0xFF10B981).withOpacity(0.2)
+                          : const Color(0xFFFF9500).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      _questionnaireCompleted ? 'ACTIVE' : 'SETUP',
+                      style: TextStyle(
+                        color: _questionnaireCompleted 
+                            ? const Color(0xFF10B981)
+                            : const Color(0xFFFF9500),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Questionnaire Section
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2A2A2A),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFFFF9500).withOpacity(0.3),
+                  width: 1,
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFF9500).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(
+                          Icons.quiz,
+                          color: Color(0xFFFF9500),
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Personality Questionnaire',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'Help your AI bot understand your personality',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Progress Bar
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Progress',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            '$_completedQuestions/$_totalQuestions',
+                            style: TextStyle(
+                              color: const Color(0xFFFF9500),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      LinearProgressIndicator(
+                        value: _totalQuestions > 0 ? _completedQuestions / _totalQuestions : 0.0,
+                        backgroundColor: Colors.grey.withOpacity(0.3),
+                        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFFF9500)),
+                        minHeight: 6,
+                      ),
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Questionnaire Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => _openQuestionnaire(),
+                      icon: Icon(
+                        _questionnaireCompleted ? Icons.edit : Icons.play_arrow,
+                        size: 18,
+                      ),
+                      label: Text(
+                        _questionnaireCompleted ? 'Edit Questionnaire' : 'Start Questionnaire',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFF9500),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -121,71 +272,6 @@ class _AiBotPageState extends State<AiBotPage> {
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 16),
                 ),
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            // Interaction Style Section
-            const Text(
-              'Interaction Style',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 16),
-            
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2A2A2A),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Modest',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const Text(
-                        'Flirty',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: const Color(0xFFFF9500),
-                      inactiveTrackColor: Colors.grey.withOpacity(0.3),
-                      thumbColor: const Color(0xFFFF9500),
-                      overlayColor: const Color(0xFFFF9500).withOpacity(0.2),
-                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
-                      trackHeight: 4,
-                    ),
-                    child: Slider(
-                      value: _interactionStyle,
-                      onChanged: (value) {
-                        setState(() {
-                          _interactionStyle = value;
-                        });
-                      },
-                      min: 0.0,
-                      max: 1.0,
-                    ),
-                  ),
-                ],
               ),
             ),
 
@@ -275,6 +361,18 @@ class _AiBotPageState extends State<AiBotPage> {
         ),
       ),
     );
+  }
+
+  void _openQuestionnaire() {
+    // Navigate to questionnaire page
+    Navigator.pushNamed(context, '/ai_questionnaire').then((result) {
+      if (result != null && result is Map<String, dynamic>) {
+        setState(() {
+          _questionnaireCompleted = result['completed'] ?? false;
+          _completedQuestions = result['completedQuestions'] ?? 0;
+        });
+      }
+    });
   }
 
   void _saveChanges() {
