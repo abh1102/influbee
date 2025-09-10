@@ -24,7 +24,7 @@ class SignupService {
       print("Password: $password");
       print("ConfirmPassword: $confirmPassword");
       print("PhoneNumber: ${phoneNumber ?? '+919835490475'}");
-      print("Role: USER");
+
       print("DisplayName: $username");
       print("ProfileImage Path: ${profileImage.path}");
 
@@ -32,11 +32,11 @@ class SignupService {
         "email": email,
         "username": username,
         "password": password,
-        "confirmPassword": confirmPassword,
+        // "confirmPassword": confirmPassword,
         "phoneNumber": phoneNumber ?? "+919835490475",
-        "role": "USER",
+        "role": "influencer",
         "displayName": username,
-        "profileImage": await MultipartFile.fromFile(
+        "avatar": await MultipartFile.fromFile(
           profileImage.path,
           filename: profileImage.path.split("/").last,
           contentType: MediaType.parse(_getImageContentType(profileImage.path)), // ✅ Added

@@ -63,7 +63,8 @@ class PayoutApp extends StatelessWidget {
         // Ensure proper text scaling
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/login',
+      // initialRoute: '/login',
+      initialRoute: '/all_page',
       routes: {
         '/': (context) => const ProfileDashboardPage(),
         '/all_pages': (context) => const HomePage(),

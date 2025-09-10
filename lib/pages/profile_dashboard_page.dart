@@ -3,6 +3,8 @@ import '../widgets/bottom_nav_bar.dart';
 import '../widgets/influbee_coin.dart';
 import 'package:flutter/services.dart';
 
+import 'instant_live_page.dart';
+
 class ProfileDashboardPage extends StatefulWidget {
   const ProfileDashboardPage({super.key});
 
@@ -371,7 +373,7 @@ class _ProfileDashboardPageState extends State<ProfileDashboardPage> {
             })),
             const SizedBox(width: 12),
             Expanded(child: _buildQuickActionBox(Icons.live_tv, 'Live', () {
-              Navigator.pushNamed(context, '/live_options');
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>InstantLivePage()));
             })),
             const SizedBox(width: 12),
             Expanded(child: _buildQuickActionBox(Icons.smart_toy, 'AI Bot', () {
