@@ -169,7 +169,6 @@ class SignupController extends GetxController {
         email: email,
         username: name,
         password: password,
-        confirmPassword: confirmPassword,
         phoneNumber: "1234567890", // dummy value (can be dynamic later)
         profileImage: profileImage.value!,
       );

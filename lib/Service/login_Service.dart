@@ -11,7 +11,6 @@ class LoginService {
 
   Future<Response> login(String email, String password) async {
     print("[AuthService] Starting login...");
-    print("[AuthService] Request URL: ${_dio.options.baseUrl}${ApiConfig.login}");
     print("[AuthService] Payload: { email: $email, password: $password }");
 
     final response = await _dio.post(

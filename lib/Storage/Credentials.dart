@@ -30,6 +30,7 @@ class AuthService extends GetxService {
   Future<void> saveLoginData(Map<String, dynamic> responseData) async {
     final token = responseData['access_token'];
     final userData = responseData['user'];
+    print("✅ Token saved: $token");
 
     if (token != null) {
       accessToken.value = token;

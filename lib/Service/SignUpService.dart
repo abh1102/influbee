@@ -13,7 +13,7 @@ class SignupService {
     required String email,
     required String username,
     required String password,
-    required String confirmPassword,
+   String? confirmPassword,
     String? phoneNumber,
     required File profileImage,
   }) async {
@@ -36,7 +36,7 @@ class SignupService {
         "phoneNumber": phoneNumber ?? "+919835490475",
         "role": "influencer",
         "displayName": username,
-        "avatar": await MultipartFile.fromFile(
+      "profileImage": await MultipartFile.fromFile(
           profileImage.path,
           filename: profileImage.path.split("/").last,
           contentType: MediaType.parse(_getImageContentType(profileImage.path)), // ✅ Added
