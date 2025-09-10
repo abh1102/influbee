@@ -60,13 +60,17 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Spacer(),
                           // Logo and Welcome Text
-                          const Text(
-                            'influbee',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          // const Text(
+                          //   'influbee',
+                          //   style: TextStyle(
+                          //     color: Colors.white,
+                          //     fontSize: 32,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                          Image.asset(
+                            'assets/Images/logo2.png', // ✅ put your logo path here
+                            height: 80, // adjust as needed
                           ),
                           const SizedBox(height: 8),
                           const Text(

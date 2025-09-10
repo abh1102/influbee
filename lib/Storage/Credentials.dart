@@ -17,7 +17,10 @@ class AuthService extends GetxService {
   Future<AuthService> init() async {
     await GetStorage.init();
 
+    // Load token
     accessToken.value = _storage.read<String>(_tokenKey);
+
+    // Load user data
     final storedUser = _storage.read<Map<String, dynamic>>(_userKey);
     if (storedUser != null) {
       user.assignAll(storedUser);
@@ -26,20 +29,21 @@ class AuthService extends GetxService {
     return this;
   }
 
-  /// Save login response (user + token)
+  /// Save login response (user + token) locally
   Future<void> saveLoginData(Map<String, dynamic> responseData) async {
     final token = responseData['access_token'];
     final userData = responseData['user'];
-    print("✅ Token saved: $token");
 
     if (token != null) {
       accessToken.value = token;
-      await _storage.write(_tokenKey, token);
+      await _storage.write(_tokenKey, token); // ✅ Saves token locally
+      print("✅ Token saved locally: $token");
     }
 
     if (userData != null) {
       user.assignAll(Map<String, dynamic>.from(userData));
-      await _storage.write(_userKey, userData);
+      await _storage.write(_userKey, userData); // ✅ Saves user locally
+      print("✅ User data saved locally: $userData");
     }
   }
 

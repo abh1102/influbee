@@ -21,6 +21,12 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
+	<key>NSCameraUsageDescription</key>
+    <string>This app needs access to camera to take photos</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to photo library to select photos</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app needs access to microphone for video recording</string>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

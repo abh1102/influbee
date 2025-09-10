@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:influbee/pages/active_call_page.dart';
 import 'package:influbee/pages/ai_bot_page.dart';
 import 'package:influbee/pages/bank_details_page.dart';
@@ -25,6 +26,7 @@ import 'package:influbee/pages/settings_page.dart';
 import 'package:influbee/pages/wallet_page.dart';
 
 import 'Profile/profile_page.dart';
+import 'Storage/Credentials.dart';
 import 'app/pages.dart';
 import 'app/routes.dart';
 import 'appss.dart';
@@ -46,6 +48,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await GetStorage.init();
+  await Get.putAsync<AuthService>(() async => await AuthService().init());
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

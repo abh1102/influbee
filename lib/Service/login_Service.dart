@@ -6,7 +6,7 @@ import '../Storage/Credentials.dart';
 
 class LoginService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: ApiConfig.baseUrl, // ✅ ensure baseUrl is set
+    baseUrl: ApiConfig.baseUrl,
   ));
 
   Future<Response> login(String email, String password) async {
@@ -24,12 +24,17 @@ class LoginService {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        validateStatus: (_) => true, // ✅ prevent Dio from auto-throwing
+        validateStatus: (_) => true,
       ),
     );
 
     print("[AuthService] Response Status: ${response.statusCode}");
     print("[AuthService] Response Data: ${response.data}");
+
+    // ✅ Save token & user locally after success
+    if (response.statusCode == 200 && response.data != null) {
+      await AuthService.to.saveLoginData(response.data);
+    }
 
     return response;
   }

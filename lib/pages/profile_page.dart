@@ -13,7 +13,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _emailController = TextEditingController(text: 'jessica.bee@influbee.com');
   final TextEditingController _urlController = TextEditingController(text: '@jessicabee_official');
   final TextEditingController _bioController = TextEditingController(
-    text: 'Spreading positivity & honey vibes ✨\nLet\'s create something sweet together! 🍯'
+      text: 'Spreading positivity & honey vibes ✨\nLet\'s create something sweet together! 🍯'
   );
 
   @override
@@ -53,22 +53,22 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             // Profile Header
             _buildProfileHeader(),
-            
+
             const SizedBox(height: 24),
-            
+
             // Basic Info with transparent design
             _buildBasicInfo(),
-            
+
             const SizedBox(height: 24),
-            
+
             // Bio Section with transparent design
             _buildBioSection(),
-            
+
             const SizedBox(height: 24),
-            
+
             // Save Button
             _buildSaveButton(),
-            
+
             const SizedBox(height: 40),
           ],
         ),

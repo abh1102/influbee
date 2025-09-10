@@ -3,8 +3,6 @@ import '../widgets/bottom_nav_bar.dart';
 import '../widgets/influbee_coin.dart';
 import 'package:flutter/services.dart';
 
-import 'instant_live_page.dart';
-
 class ProfileDashboardPage extends StatefulWidget {
   const ProfileDashboardPage({super.key});
 
@@ -26,24 +24,24 @@ class _ProfileDashboardPageState extends State<ProfileDashboardPage> {
             children: [
               // Header Section
               _buildHeader(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Total Earnings
               _buildEarningsCard(),
-              
+
               const SizedBox(height: 24),
-              
+
               // URL Section
               _buildUrlSection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Performance Section
               _buildPerformanceSection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Quick Actions
               _buildQuickActions(),
             ],
@@ -309,25 +307,25 @@ class _ProfileDashboardPageState extends State<ProfileDashboardPage> {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 8),
-          label == 'Messages' 
-            ? CoinText(
-                amount: value,
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                coinSize: 16,
-              )
-            : Text(
-                value,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
+          label == 'Messages'
+              ? CoinText(
+            amount: value,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            coinSize: 16,
+          )
+              : Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
           const SizedBox(height: 4),
           Row(
             children: [
@@ -373,7 +371,7 @@ class _ProfileDashboardPageState extends State<ProfileDashboardPage> {
             })),
             const SizedBox(width: 12),
             Expanded(child: _buildQuickActionBox(Icons.live_tv, 'Live', () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>InstantLivePage()));
+              Navigator.pushNamed(context, '/live_options');
             })),
             const SizedBox(width: 12),
             Expanded(child: _buildQuickActionBox(Icons.smart_toy, 'AI Bot', () {

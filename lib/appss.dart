@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:influbee/pages/HomePage.dart';
 import 'package:influbee/pages/active_call_page.dart';
 import 'package:influbee/pages/ai_bot_page.dart';
+import 'package:influbee/pages/ai_questionnaire_page.dart';
 import 'package:influbee/pages/bank_details_page.dart';
 import 'package:influbee/pages/billing_details_page.dart';
 import 'package:influbee/pages/calls_page.dart';
@@ -10,9 +11,13 @@ import 'package:influbee/pages/confirm_pin_page.dart';
 import 'package:influbee/pages/content_library_page.dart';
 import 'package:influbee/pages/create_account_page.dart';
 import 'package:influbee/pages/enter_pin_page.dart';
+import 'package:influbee/pages/exclusive_content_gallery_page.dart';
 import 'package:influbee/pages/features_page.dart';
 import 'package:influbee/pages/forgot_password_page.dart';
 import 'package:influbee/pages/incoming_call_page.dart';
+import 'package:influbee/pages/instant_live_page.dart';
+import 'package:influbee/pages/live_link_page.dart';
+import 'package:influbee/pages/live_options_page.dart';
 import 'package:influbee/pages/login_page.dart';
 import 'package:influbee/pages/messages_page.dart';
 import 'package:influbee/pages/new_post_details_page.dart';
@@ -25,10 +30,13 @@ import 'package:influbee/pages/pan_details_page.dart';
 import 'package:influbee/pages/password_page.dart';
 import 'package:influbee/pages/premium_calls_page.dart';
 import 'package:influbee/pages/profile_dashboard_page.dart';
+import 'package:influbee/pages/profile_page.dart';
 import 'package:influbee/pages/reset_password_page.dart';
 import 'package:influbee/pages/review_publish_page.dart';
+import 'package:influbee/pages/schedule_live_page.dart';
 import 'package:influbee/pages/set_pin_page.dart';
 import 'package:influbee/pages/setup_rates_page.dart';
+import 'package:influbee/pages/view_scheduled_page.dart';
 import 'package:influbee/pages/wallet_page.dart';
 import 'package:influbee/utils/app_theme.dart';
 
@@ -97,12 +105,19 @@ class PayoutApp extends StatelessWidget {
         '/new_post_details': (context) => const NewPostDetailsPage(),
         '/new_post_price': (context) => const NewPostPricePage(),
         '/review_publish': (context) => const ReviewPublishPage(),
-        '/profile_picture_upload': (context) =>  ProfilePictureUploadPage(),
+        '/profile_picture_upload': (context) => ProfilePictureUploadPage(),
         '/otp_verification': (context) => const OTPVerificationPage(),
         '/reset_password': (context) => const ResetPasswordPage(),
         '/billing_details': (context) => const BillingDetailsPage(),
         '/setup_rates': (context) => const SetupRatesPage(),
         '/premium_calls': (context) => const PremiumCallsPage(),
+        '/live_options': (context) => const LiveOptionsPage(),
+        '/instant_live': (context) => const InstantLivePage(),
+        '/schedule_live': (context) => const ScheduleLivePage(),
+        '/live_link': (context) => const LiveLinkPage(),
+        '/view_scheduled': (context) => const ViewScheduledPage(),
+        '/exclusive_content_gallery': (context) => const ExclusiveContentGalleryPage(),
+        '/ai_questionnaire': (context) => const AiQuestionnairePage(),
       },
     );
   }
